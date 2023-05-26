@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Current ThingSpeak Data</title>
+    <style>
+      .container {
+    background-image: url(Street.jpeg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+  margin-top: 20%;
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 600px;
+    background-color: rgb(255, 255, 255);
+}
+
+thead th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+}
+
+tbody td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+    </style>
+  </head>
+  <body>
+
+    <!-- <div class="image-container">
+      <img src="Smart Street Lighthing System Data.png" alt="Background Image" width="90%"> -->
+      <div class="container">
+    <table>
+      <thead>
+      <tr>
+        <th>Sensor 1</th>
+        <th>Sensor 2</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="data-row">
+        <td>Loading...</td>
+        <td>Loading...</td>
+        
+      </tr>
+      </tbody>
+    </table>
+  </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+
+      
+        $(document).ready(function() {
+  // Replace YOUR_CHANNEL_ID and YOUR_READ_API_KEY with your actual channel ID and read API key
+  var url = "https://api.thingspeak.com/channels/2091705/feeds.json?api_key=WLJKU975KFGBU22B&results=1";
+
+  $.getJSON(url, function(data) {
+    var field1 = data.feeds[0].field1;
+    var field2 = data.feeds[0].field2;
+
+    if (field1 !== null) {
+      field1 = "Street light 1 and 2 turned ON and vehicle distance is "+`${field1}`;
+    }
+    else{
+        field1 = "Street light 1 and 2 turned OFF";
+    }
+    if (field2 !== null) {
+      field2 = "Street light 2 and 3 turned ON and vehicle distance is "+`${field2}`;
+    }
+    else{
+        field2 = "Street light 2 and 3 turned OFF";
+    }
+  
+    var html = "<td>" + field1 + "</td><td>" + field2 + "</td><td>" ;
+    $("#data-row").html(html);
+  });
+});
+
+ 
+
+    </script>
+  </body>
+</html>
